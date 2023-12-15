@@ -1,0 +1,32 @@
+.search-container{
+    display: flex;
+    gap: 8px;
+    width: 100%;
+
+    padding: 8px 16px;
+    
+}
+
+.search-container input{
+    flex: 1;
+    border-radius: 8px;
+    padding: 8px;
+
+    border: 1px solid #cee8f1;
+    background-color: #EDF2F4;
+
+    &:focus{
+        border: 1px solid #7bd9f8;
+        outline: none;
+    }
+}
+
+.search-container button{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background-color:#cee8f1;
+    padding: 8px;
+    border-radius: 8px;
+}

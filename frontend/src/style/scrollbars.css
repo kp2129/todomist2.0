@@ -1,0 +1,37 @@
+/* For WebKit based browsers (e.g., Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(102, 167, 193, 0.4);
+    border-radius: 8px;
+  }
+  
+  /* For Firefox */
+  /* Note: Firefox does not support styling scrollbar-thumb directly */
+  /* Instead, it supports scrollbar-color and scrollbar-width properties */
+  /* The thumb color will not be translucent in Firefox */
+  /* You might also need to use ::-moz-scrollbar for older versions of Firefox */
+  * {
+    scrollbar-color: rgba(102, 167, 193, 0.4) rgba(0, 0, 0, 0); /* thumb and track color */
+    scrollbar-width: thin;
+  }
+  
+  /* For Internet Explorer and Edge */
+  /* Note: Edge Legacy versions might need MS prefix */
+  /* These versions of Edge and Internet Explorer have limited support */
+  * {
+    scrollbar-face-color: rgba(102, 167, 193, 0.4);
+    scrollbar-base-color: rgba(102, 167, 193, 0.4);
+    scrollbar-3dlight-color: rgba(102, 167, 193, 0.4);
+    scrollbar-highlight-color: rgba(102, 167, 193, 0.4);
+    scrollbar-shadow-color: rgba(102, 167, 193, 0.4);
+    scrollbar-darkshadow-color: rgba(102, 167, 193, 0.4);
+    scrollbar-track-color: rgba(102, 167, 193, 0.4);
+    scrollbar-arrow-color: rgba(102, 167, 193, 0.4);
+    scrollbar-face-color: rgba(102, 167, 193, 0.4);
+    scrollbar-highlight-color: rgba(102, 167, 193, 0.4);
+    scrollbar-darkshadow-color: rgba(102, 167, 193, 0.4);
+  }
+  
