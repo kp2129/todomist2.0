@@ -77,7 +77,6 @@ class TodoController extends Controller
 
     }
 
-    // Leons taisija, pat nedoma aizstikt (KRISTAP)
     public function search($query){
         
         if(empty($query)){

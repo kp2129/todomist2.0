@@ -43,8 +43,8 @@ export default function Calendar() {
     
 
     return (
-        <div className='flex-col grow'>
-            <div className='grid grid-cols-7 bg-light-color header-container'>
+        <div className='min-w-max flex-col grow'>
+            <div className='grid grid-cols-7 bg-light-color header-container '>
                 <div>Monday</div>
                 <div>Tuesday</div>
                 <div>Wednesday</div>

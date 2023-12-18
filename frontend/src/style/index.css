@@ -67,6 +67,8 @@ header {
 main {
     display: flex;
     height: 100%;
+
+    overflow-x: scroll;
 }
 
 .Flex-center{
@@ -74,7 +76,7 @@ main {
 }
 
 aside {
-    width: 400px;
+    width: 350px;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
     height: 100%;
 
@@ -278,3 +280,17 @@ aside {
     gap: 1rem;
 }
 
+
+@media only screen and (max-width: 600px) {
+    .header-left-side > a > svg{
+        width: 150px;
+    }
+    aside {
+        width: unset;
+        height: fit-content;
+      
+    }
+    main{
+        flex-direction: column;
+    }
+  }
