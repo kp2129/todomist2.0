@@ -49,7 +49,7 @@ export default function Search() {
 
 
     return (
-        <div className='flex-col flex grow'>
+        <div className='flex-col flex grow h-full'>
             <div className='search-container'>
                 <input onChange={(e) => setQuery(e.target.value)} type='text' placeholder='What are you looking for?' />
                 <button onClick={searchHandle}><IconSearch /> Search</button>
