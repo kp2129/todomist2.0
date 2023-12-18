@@ -1,37 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import View from '../components/View.js';
 import Create from '../components/Create.js';
-import { IconPlus, IconChevronDown, IconChevronRight, IconDots, IconPencil, IconTrash, IconAbc } from '@tabler/icons-react';
+import { IconPlus, IconChevronDown, IconChevronRight, IconDots, IconPencil, IconTrash } from '@tabler/icons-react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
 
-function Sprint({ name, startDate, endDate, issues, issueName, id }) {
+function Sprint({ name, startDate, endDate, issueName, issues, id }) {
     // console.log()
     const [showIssues, setShowIssues] = useState(false);
+    const [showPopup, setShowPopup] = useState(false);
     function Hide({}){
         
     }
 
     function deleteTask(id){
-        // console.log('Deleting: ', id);
-        // console.log(id);
-        let token = Cookies.get('access_token');
-        console.log(token);
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': 'Bearer ' + token,
-        //     },
-        // };
-
-        // axios.delete(`http://127.0.0.1:8000/api/${id.id}`, config).then((res) => {
-        //     if(res.data.code === 0){
-        //         alert("Error: "+ res.data.reason);
-        //     }else{
-        //         document.getElementById(id.index).classList.add("hidden");
-        //     }
-        // });
+        let token = localStorage.getItem('user-token');
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            },
+        };
+        axios.delete(`http://127.0.0.1:8000/api/${id.id}`, config).then((res) => {
+            if(res.data.code === 0){
+                alert("Error: "+ res.data.reason);
+            }
+            else{
+                alert(res.data.message);
+                window.location.reload(false);
+            }
+            // console.log(res);
+        });
     }
 
     return (
@@ -46,30 +46,6 @@ function Sprint({ name, startDate, endDate, issues, issueName, id }) {
                         <button><IconDots /></button>
                     </div>
                 </div>
-                {showIssues && (
-                    <div className='sprint-cards'>
-                        {issues.map((issue, index) => (
-                            <div className="sprint-task" key={index}>
-                                <div className='sprint-task-left'>
-                                    <View />
-                                    <p>{issueName}</p><p>{issue} </p><IconPencil />
-                                </div>
-                                <div className='sprint-task-right'>
-                                    <div className='profile-icon'>
-                                        <img src="https://media.tenor.com/AlvyE4oRj24AAAAd/nerd-nerd-emoji.gif" alt="Profile"></img>
-                                    </div>
-                                    <IconDots />
-                                    <IconTrash onClick={() => deleteTask({id})} />
-                                </div>
-                            </div>
-                        ))}
-                        <div className='issue-div'>
-                            <IconPlus /> <p className="hideMe" onClick={Hide}>Create Issue</p>
-                        </div>
-                    </div>
-                )}
-
-
         {showIssues && (
           <div className='sprint-cards'>
             {issues.map((issue, index) => (
@@ -83,6 +59,7 @@ function Sprint({ name, startDate, endDate, issues, issueName, id }) {
                     <img src="https://media.tenor.com/AlvyE4oRj24AAAAd/nerd-nerd-emoji.gif" alt="Profile"></img>
                   </div>
                   <IconDots />
+                  <IconTrash onClick={() => deleteTask({id})} />
                 </div>
               </div>
             ))}
@@ -97,6 +74,10 @@ function Sprint({ name, startDate, endDate, issues, issueName, id }) {
 }
 
 function Backlog() {
+    const [createIssue, setCreateIssue] = useState(false);
+    const [showBacklog, setShowBacklog] = useState(false);
+    const [sprintsData, setSprintsData] = useState([]);
+
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/get').then((res) => {
@@ -113,12 +94,13 @@ function Backlog() {
           let end_year = new Date(test[i][1]["dueDate"]).getFullYear();
           let end_month = new Date(test[i][1]["dueDate"]).getMonth() + 1;
           let end_date = new Date(test[i][1]["dueDate"]).getDate();
-          tempData.push({ name: `${test[i][1]["taskName"]}`, startDate: `${start_date}/${start_month}/${start_year}`, endDate: `${end_date}/${end_month}/${end_year}`, issueName: `TMST-${test[i][1]['id']}`, issues: [`${test[i][1]["taskDescription"]}`] });
+          tempData.push({ name: `${test[i][1]["taskName"]}`, startDate: `${start_date}/${start_month}/${start_year}`, endDate: `${end_date}/${end_month}/${end_year}`, issueName: `TMST-${test[i][1]['id']}`, issues: [`${test[i][1]["taskDescription"]}`], id: test[i][1]["id"] });
         }
         setSprintsData(tempData);
       }
     });
   }, []);
+  console.log(sprintsData);
 
   return (
     <>
