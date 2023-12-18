@@ -24,8 +24,10 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 
-Route::get('/get', [TodoController::class, 'show']);
+
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
+  Route::get('/get', [TodoController::class, 'show']);
   Route::get('/user', [AuthController::class, 'user']);
   Route::post('/createTask', [TodoController::class, 'store']);
   Route::post('/updateTask/{id}', [TodoController::class, 'update']);

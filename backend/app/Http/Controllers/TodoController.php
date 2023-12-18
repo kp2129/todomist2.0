@@ -14,6 +14,7 @@ class TodoController extends Controller
     }
 
     public function store(Request $request, Todo $task){
+        $task->id = $request->id;
         $task->taskName = $request->taskName;
         $task->taskDescription = $request->taskDescription;
         $task->status = $request->status;
