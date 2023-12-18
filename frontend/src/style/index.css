@@ -22,7 +22,7 @@
     flex-direction: column;
 }
 
-section{
+section {
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -71,7 +71,7 @@ main {
     overflow-x: scroll;
 }
 
-.Flex-center{
+.Flex-center {
     justify-content: center;
 }
 
@@ -81,7 +81,7 @@ aside {
     height: 100%;
 
     font-size: 20px;
-    
+
     & * {
         transition: 500ms;
     }
@@ -102,7 +102,7 @@ aside {
 
 .side-bar-top.active,
 .side-bar-bottom.active {
-    
+
     background-color: rgba(102, 167, 193, 0.2);
 }
 
@@ -123,30 +123,31 @@ aside {
 }
 
 @keyframes appearAnim {
-    0%{
+    0% {
         opacity: 0;
-        
+
     }
-    100%{
+
+    100% {
         opacity: 1;
-        
+
     }
 }
 
-.inner-data{
+.inner-data {
     display: flex;
     flex-direction: column;
     gap: 8px;
 
     animation: appearAnim 1s forwards;
-    
-    
+
+
 }
 
 
 
-.inner-data > p {
-    &:hover{
+.inner-data>p {
+    &:hover {
         color: #62a9c7;
     }
 
@@ -190,9 +191,10 @@ aside {
     background-color: rgb(102, 167, 193, 0.2);
     border-radius: 10px;
     margin: 1rem;
+    position: relative;
 }
 
-.sprint-task{
+.sprint-task {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -200,52 +202,52 @@ aside {
     background-color: whitesmoke;
 }
 
-.sprint-task-right{
+.sprint-task-right {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
 
-.sprint-task-left{
+.sprint-task-left {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.sprint-task-left > svg{
+.sprint-task-left>svg {
     height: 20px;
     width: 20px;
 }
 
-.sprint-task-right > svg,
-.sprint-task-left > svg {
+.sprint-task-right>svg,
+.sprint-task-left>svg {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.sprint-task:hover .sprint-task-right > svg,
-.sprint-task:hover .sprint-task-left > svg {
+.sprint-task:hover .sprint-task-right>svg,
+.sprint-task:hover .sprint-task-left>svg {
     opacity: 1;
 }
 
-.issue-div{
+.issue-div {
     display: flex;
     align-items: center;
     padding: 0.5rem;
 }
 
-.backlog-card{
+.backlog-card {
     border-radius: 10px;
     margin: 1rem;
 }
 
-.issue-div:hover{
+.issue-div:hover {
     background-color: lightgray;
     border-radius: 10px;
 }
 
-.backlog-cards{
+.backlog-cards {
     border-style: dotted;
     border-color: lightgray;
     border-width: 2px;
@@ -280,17 +282,40 @@ aside {
     gap: 1rem;
 }
 
+.popup {
+    position: absolute;
+    display: flex;
+    background-color: white;
+    z-index: 10;
+    top: 90%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    flex-direction: column;
+}
+
+
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+
+}
+
+
 
 @media only screen and (max-width: 600px) {
-    .header-left-side > a > svg{
+    .header-left-side>a>svg {
         width: 150px;
     }
+
     aside {
         width: unset;
         height: fit-content;
-      
+
     }
-    main{
+
+    main {
         flex-direction: column;
     }
-  }
+}

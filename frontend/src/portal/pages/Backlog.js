@@ -65,15 +65,14 @@ function Sprint({ name, startDate, endDate, issueName, issues, id }) {
             ))}
             <div className='issue-div'>
               <IconPlus /> <p className="hideMe" onClick={() => setShowPopup(true)}>Create Issue</p>
+
             </div>
-          </div>
-        )}
-      </div>
-    </>
-  );
+        </>
+    );
 }
 
 function Backlog() {
+
     const [createIssue, setCreateIssue] = useState(false);
     const [showBacklog, setShowBacklog] = useState(false);
     const [sprintsData, setSprintsData] = useState([]);
@@ -102,36 +101,37 @@ function Backlog() {
   }, []);
   console.log(sprintsData);
 
-  return (
-    <>
-      <div className='backlog'>
-        {sprintsData.map((sprint) => (
-          <Sprint {...sprint} />
-        ))}
-        <div className='backlog-card'>
-          <div className='top-sprint' onClick={() => setShowBacklog(!showBacklog)}>
-            <div className='left-side-sprint'>
-              {showBacklog ? <IconChevronDown /> : <IconChevronRight />} <p>Backlog (0 issues)</p>
+
+    return (
+        <>
+            <div className='backlog'>
+                {sprintsData.map((sprint) => (
+                    <Sprint {...sprint} />
+                ))}
+                <div className='backlog-card'>
+                    <div className='top-sprint' onClick={() => setShowBacklog(!showBacklog)}>
+                        <div className='left-side-sprint'>
+                            {showBacklog ? <IconChevronDown /> : <IconChevronRight />} <p>Backlog (0 issues)</p>
+                        </div>
+                        <div className='right-side-sprint'>
+                            <button>Create sprint</button>
+                        </div>
+                    </div>
+                    {showBacklog && (
+                        <>
+                            <div className='backlog-cards'>
+                                Your backlog is empty
+                            </div>
+                            <div className='issue-div' onClick={() => setCreateIssue(true)}>
+                                <IconPlus /> <p>Create issue</p>
+                                <Create open={createIssue} close={() => setCreateIssue(false)} />
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
-            <div className='right-side-sprint'>
-              <button>Create sprint</button>
-            </div>
-          </div>
-          {showBacklog && (
-            <>
-              <div className='backlog-cards'>
-                Your backlog is empty
-              </div>
-              <div className='issue-div' onClick={() => setCreateIssue(true)}>
-                <IconPlus /> <p>Create issue</p>
-                <Create open={createIssue} close={() => setCreateIssue(false)} />
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-    </>
-  );
+        </>
+    );
 }
 
 export default Backlog;
