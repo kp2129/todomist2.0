@@ -1,36 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import View from '../components/View.js';
 import Create from '../components/Create.js';
-import { IconPlus, IconChevronDown, IconChevronRight, IconDots, IconPencil } from '@tabler/icons-react';
+import { IconPlus, IconChevronDown, IconChevronRight, IconDots, IconPencil, IconTrash, IconAbc } from '@tabler/icons-react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
-function Sprint({ name, startDate, endDate, issues, issueName }) {
-  const [showIssues, setShowIssues] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
 
-  return (
-    <>
-      <div className='sprints'>
-        <div className='top-sprint'>
-          <div className='left-side-sprint' onClick={() => setShowIssues(!showIssues)}>
-            {showIssues ? <IconChevronDown /> : <IconChevronRight />} <p>{`${name} ${startDate} - ${endDate} (${issues.length} issues)`}</p>
-          </div>
-          <div className='right-side-sprint'>
-            <button>Complete sprint</button>
-            <button onClick={() => setShowPopup(!showPopup)}><IconDots /></button>
-          </div>
-        </div>
+function Sprint({ name, startDate, endDate, issues, issueName, id }) {
+    // console.log()
+    const [showIssues, setShowIssues] = useState(false);
+    function Hide({}){
+        
+    }
 
-        {/* Pop-up */}
-        {showPopup && (
-          <div className='popup'>
-            <div className='popup-content'>
-              {/* Pop-up content goes here */}
-              <p>Pop-up content</p>
-            </div>
-            <button className='close-button' onClick={() => setShowPopup(false)}>Close</button>
-          </div>
-        )}
+    function deleteTask(id){
+        // console.log('Deleting: ', id);
+        // console.log(id);
+        let token = Cookies.get('access_token');
+        console.log(token);
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': 'Bearer ' + token,
+        //     },
+        // };
+
+        // axios.delete(`http://127.0.0.1:8000/api/${id.id}`, config).then((res) => {
+        //     if(res.data.code === 0){
+        //         alert("Error: "+ res.data.reason);
+        //     }else{
+        //         document.getElementById(id.index).classList.add("hidden");
+        //     }
+        // });
+    }
+
+    return (
+        <>
+            <div className='sprints'>
+                <div className='top-sprint'>
+                    <div className='left-side-sprint' onClick={() => setShowIssues(!showIssues)}>
+                        {showIssues ? <IconChevronDown /> : <IconChevronRight />} <p>{`${name} ${startDate} - ${endDate} (${issues.length} issues)` }</p>
+                    </div>
+                    <div className='right-side-sprint'>
+                        <button>Complete sprint</button>
+                        <button><IconDots /></button>
+                    </div>
+                </div>
+                {showIssues && (
+                    <div className='sprint-cards'>
+                        {issues.map((issue, index) => (
+                            <div className="sprint-task" key={index}>
+                                <div className='sprint-task-left'>
+                                    <View />
+                                    <p>{issueName}</p><p>{issue} </p><IconPencil />
+                                </div>
+                                <div className='sprint-task-right'>
+                                    <div className='profile-icon'>
+                                        <img src="https://media.tenor.com/AlvyE4oRj24AAAAd/nerd-nerd-emoji.gif" alt="Profile"></img>
+                                    </div>
+                                    <IconDots />
+                                    <IconTrash onClick={() => deleteTask({id})} />
+                                </div>
+                            </div>
+                        ))}
+                        <div className='issue-div'>
+                            <IconPlus /> <p className="hideMe" onClick={Hide}>Create Issue</p>
+                        </div>
+                    </div>
+                )}
+
 
         {showIssues && (
           <div className='sprint-cards'>
@@ -59,9 +97,6 @@ function Sprint({ name, startDate, endDate, issues, issueName }) {
 }
 
 function Backlog() {
-  const [showBacklog, setShowBacklog] = useState(false);
-  const [sprintsData, setSprintsData] = useState([]);
-  const [createIssue, setCreateIssue] = useState(false);
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/api/get').then((res) => {
