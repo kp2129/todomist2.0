@@ -29,7 +29,7 @@ class TodoController extends Controller
         }
 
     }
-    public function destroy(Todo $task, $id){
+    public function destroy($id){
         $model = Todo::where('id', $id)->first();
 
         if($model){

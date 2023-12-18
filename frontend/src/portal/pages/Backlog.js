@@ -1,21 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import View from '../components/View.js';
 import Create from '../components/Create.js';
-import { IconPlus, IconChevronDown, IconChevronRight, IconDots, IconPencil } from '@tabler/icons-react';
+import { IconPlus, IconChevronDown, IconChevronRight, IconDots, IconPencil, IconTrash, IconAbc } from '@tabler/icons-react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
-function Sprint({ name, startDate, endDate, issues, issueName }) {
+function Sprint({ name, startDate, endDate, issues, issueName, id }) {
     // console.log()
     const [showIssues, setShowIssues] = useState(false);
     function Hide({}){
         
     }
+
+    function deleteTask(id){
+        // console.log('Deleting: ', id);
+        // console.log(id);
+        let token = Cookies.get('access_token');
+        console.log(token);
+        // const config = {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': 'Bearer ' + token,
+        //     },
+        // };
+
+        // axios.delete(`http://127.0.0.1:8000/api/${id.id}`, config).then((res) => {
+        //     if(res.data.code === 0){
+        //         alert("Error: "+ res.data.reason);
+        //     }else{
+        //         document.getElementById(id.index).classList.add("hidden");
+        //     }
+        // });
+    }
+
     return (
         <>
             <div className='sprints'>
                 <div className='top-sprint'>
                     <div className='left-side-sprint' onClick={() => setShowIssues(!showIssues)}>
-                        {showIssues ? <IconChevronDown /> : <IconChevronRight />} <p>{`${name} ${startDate} - ${endDate} (${issues.length} issues)`}</p>
+                        {showIssues ? <IconChevronDown /> : <IconChevronRight />} <p>{`${name} ${startDate} - ${endDate} (${issues.length} issues)` }</p>
                     </div>
                     <div className='right-side-sprint'>
                         <button>Complete sprint</button>
@@ -35,12 +58,12 @@ function Sprint({ name, startDate, endDate, issues, issueName }) {
                                         <img src="https://media.tenor.com/AlvyE4oRj24AAAAd/nerd-nerd-emoji.gif" alt="Profile"></img>
                                     </div>
                                     <IconDots />
+                                    <IconTrash onClick={() => deleteTask({id})} />
                                 </div>
                             </div>
                         ))}
                         <div className='issue-div'>
                             <IconPlus /> <p className="hideMe" onClick={Hide}>Create Issue</p>
-
                         </div>
                     </div>
                 )}
@@ -74,7 +97,7 @@ function Backlog() {
                     let end_month = new Date(test[i][1]["dueDate"]).getMonth()+1;
                     let end_date = new Date(test[i][1]["dueDate"]).getDate();
                     // console.log(start_date);
-                    tempData.push({ name: `${test[i][1]["taskName"]}`, startDate: `${start_date}/${start_month}/${start_year}`, endDate: `${end_date}/${end_month}/${end_year}`, issueName: `TMST-${test[i][1]['id']}`, issues: [`${test[i][1]["taskDescription"]}`] });
+                    tempData.push({ name: `${test[i][1]["taskName"]}`, startDate: `${start_date}/${start_month}/${start_year}`, endDate: `${end_date}/${end_month}/${end_year}`, issueName: `TMST-${test[i][1]['id']}`, issues: [`${test[i][1]["taskDescription"]}`], id: test[i][1]['id'] });
                 } 
                 // for(let i = 0; i < test.length; i++){
                 //     issues.push(test[i][1]["taskDescription"]);
@@ -85,6 +108,7 @@ function Backlog() {
             }
         });
     }, []);
+    console.log(sprintsData);
 
     // axios.get('http://127.0.0.1:8000/api/get').then((res) => {
     //     if(res.data.code === 0){
