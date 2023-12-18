@@ -30,6 +30,8 @@
     justify-content: space-between;
     align-items: center;
 
+    
+
     & .day-number{
         margin: 8px 0;
         font-size: xx-large;

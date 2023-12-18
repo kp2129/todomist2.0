@@ -32,6 +32,7 @@ const Create = (props) => {
         .then(response => response.json())
         .then(result => {
           console.log(result);
+           window.location.reload(false);
           console.log("lets go")
         })
         .catch(error => {

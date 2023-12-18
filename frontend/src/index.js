@@ -8,6 +8,7 @@ import Auth from './auth/Auth';
 import App from './App';
 import ProtectedRoute from './util/ProtectedRoute';
 import Home from './portal/home/Home';
+import Profile from './portal/pages/Profile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,14 +19,24 @@ root.render(
           <Route path='login' element={<Login />} />
         </Route>
         <Route path="/" element={<App />}>
-          <Route path='' element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          } />
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path='profile'
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );
-
